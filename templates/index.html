@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+    <style type="text/css">
+
+    a#logo:hover {
+        background-position: 0 -60px;
+    }
+
+    a#note-for-parent {
+        color: #6AD3F0;
+        float: left;
+        display: block;
+        height: 60px;
+        line-height: 60px;
+        background-color: #0E81A1;
+        padding: 0 10px;
+    }
+
+    a#note-for-parent strong {
+        font-weight: bold;
+        color: #FFF;
+    }
+
+    a#note-for-parent:hover {
+        background: #007191;
+    }
+
+    div#note {
+    	width: 940px;
+        padding: 0;
+    }
+
+    div#blackboard {
+        width: 798px;
+        height: 310px;
+        margin: 0 auto;
+        position: relative;
+        zoom: 1;
+        color: #FFF;
+    }
+
+    div#blackboard .left {
+        background-image: url("/static/img/blackboard-l.png");
+        height: 310px;
+        width: 31px;
+        float: left;
+        background-repeat: no-repeat;
+    }
+
+    div#blackboard .middle {
+        background-image: url("/static/img/blackboard-m.png");
+        height: 310px;
+        width: 736px;
+        float: left;
+        background-repeat: repeat-x;
+        position: relative;
+        zoom: 1;
+    }
+
+    div.intro {
+        height: 190px;
+        width: 736px;
+        padding: 40px 0 80px;
+        background-position: 0 87px;
+        background-image: url("/static/img/intro.png");
+        background-repeat: no-repeat;
+        position: relative;
+        zoom: 1;
+    }
+
+    div#blackboard .right {
+        background-image: url("/static/img/blackboard-r.png");
+        height: 310px;
+        width: 31px;
+        float: right;
+        background-repeat: no-repeat;
+    }
+
+    div#chalk-and-eraser {
+        _display: none;
+        width: 143px;
+        height: 53px;
+        background-image: url("/static/img/chalk-and-eraser.png");
+        position: absolute;
+        bottom: 18px;
+        left: 84px;
+    }
+    
+    #note p.regular {
+		display: none;
+	}
+    
+	#note-blackboard-hidden p.regular {
+		display: block;
+	}
+
+    #toggle_blackboard {
+    	position: absolute;
+	    right: 10px;
+	    font-size: 12px;
+	    font-weight: bold;
+    }
+    
+    #note #toggle_blackboard {
+    	top: 257px;
+    }
+    
+    #note-blackboard-hidden #toggle_blackboard {
+    	top: 10px;
+    }
+    
+        #toggle_blackboard:hover {
+    	color: #FFF;
+    }
+    
+    #note #toggle_blackboard:hover:before {
+    	content: "隐藏黑板 ";
+    }
+    
+    #note-blackboard-hidden #toggle_blackboard:hover:before {
+    	content: "显示黑板 ";
+	}    
+	
+	div.special li.last {
+		border-bottom-width: 0;
+	}
+	
+	a#xn_share {
+		position: absolute;
+		right: 0;
+		top: 42px;
+	}
+
+    </style>
+{% endblock %}
+
+{% block note %}
+            <div id="blackboard">
+                <div class="left"></div>
+                <div class="middle">
+                    <div class="intro">
+                        <p style="margin: 0; text-align: center;">
+                        这里是十一人的“高考志愿填报毕业生协助站”：<a href="http://zhiyuan.shiyiquan.cn/">zhiyuan.shiyiquan.cn</a>（志愿·十一圈）</p>
+                        <a id="xn_share" name="xn_share" type="button" href="#">分享</a><script src="http://static.connect.renren.com/js/share.js" type="text/javascript"></script>
+                    </div>
+                </div>
+                <div class="right"></div>
+                <div id="chalk-and-eraser"></div>
+            </div>
+            <p class="regular">这里是十一人的“高考志愿填报毕业生协助站”：<a href="http://zhiyuan.shiyiquan.cn/">zhiyuan.shiyiquan.cn</a>（志愿·十一圈）</p>
+            <a id="toggle_blackboard" href="#">▲</a>
+{% endblock %}
+
+{% block header_extra %}
+<a id="note-for-parent" href="/about/#note-for-parent">亲爱的家长，请到<strong>这里</strong>阅读一段说明</a>
+{% endblock %}
+
+{% block main %}
+            <div class="column-1-unit">
+                <div class="box special">
+                    <h2><a href="/special/">专题</a></h2>
+                    <div class="content">
+                        <ul>
+                        	<li>
+                        		<a href="/special/">
+                                	<h3>热门高校汇总 <!-- <span class="statistic">51 所</span> --></h3>
+                                </a>
+                                <p class="description clear"></p>
+                        	</li>
+                        	<li>
+                        		<a href="/special/">
+                                	<h3>高校官方网站汇总 <!-- <span class="statistic">120 个</span> --></h3>
+                                </a>
+                                <p class="description clear"></p>
+                        	</li>
+                        	<li>
+                        		<a href="/special/">
+                                	<h3>门户网站链接 <!-- <span class="statistic">372 个</span> --></h3>
+                                </a>
+                                <p class="description clear"></p>
+                        	</li>
+                        	<li>
+                        		<a href="/special/">
+                                	<h3>标签列表 <!-- <span class="statistic">26 个</span> --></h3>
+                                </a>
+                                <p class="description clear"></p>
+                        	</li>
+                        	<li class="last">
+                        		<a href="/special/">
+                                	<h3>在读学长感悟 <!-- <span class="statistic">203 篇</span> --></h3>
+                                </a>
+                                <p class="description clear"></p>
+                        	</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="column-sep"></div>
+            <div class="column-2-unit">
+
+                <div class="list qna">
+                    <h2><a href="/qna/">精选问答</a></h2>
+                    <div class="content">
+                        <ul>
+                        {% load short %}
+                        {% for a in anss %}
+                            <li>
+                                <a href="/view/{{ a.father.id }}/">
+                                <h3><span class="who">{{ a.father.writername }}：<span class="id">#{{ a.father.id }}</span> </span><span class="what">{{ a.title }}</span></h3>
+                                <p><span class="who">{{ a.writer }}：</span>{{ a.content|short:80 }}</p>
+                                </a>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                        <a href="/qna/" class="more">更多问答</a>
+                    </div>
+                </div>
+            </div>
+            <div class="column-sep"></div>
+            <div class="column-1-unit">
+{% include "module-q-entrance.html" %}
+{% include "module-shortcut.html" %}
+{% include "module-search.html" %}
+{% include "module-senior.html" %}
+            </div>
+{% endblock %}
+

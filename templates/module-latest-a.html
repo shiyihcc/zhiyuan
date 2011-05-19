@@ -1,0 +1,15 @@
+				<div class="list qna">
+                    <h2><a href="/qna/all/">最新答复</a></h2>
+                    <div class="content">
+                        <ul>
+                            {% load short %}
+                            {% for la in las %}
+                            <li>
+                                <h3><a href="/view/{{ la.father.id }}/"><span class="who">{{ la.father.writername }}：</span><span class="what"><span class="id">#{{ la.father.id }}</span> {{ la.title }}</span></a></h3>
+                                <p><a href="/view/{{ la.father.id }}/"><span class="who">{{ la.writer }}：</span>{{ la.content|short:50 }}</a></p>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        <a href="/qna/all/" class="more">所有问答</a>
+                    </div>
+                </div>

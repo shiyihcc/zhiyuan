@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+    <style type="text/css"> 
+    div#note span.kw {
+    	font-weight: bold;
+    	margin: 0 4px;
+    	color: #FFF;
+    }
+    
+    div.search h2 span.kw {
+    	font-weight: bold;
+    	margin: 0 7px;
+    }
+    
+    div.search .content span.kw {
+    	background-color: #3FA8C4;
+		padding: 0 1px;
+		margin: 0 1px;
+		color: #FFF;
+    }
+    </style>
+{% endblock %}
+
+{% block note %}
+            <p>这里是问答条目的搜索结果，越晚创建的问答条目越靠上。你的搜索关键字是<span class="kw">{{ kw }}</span>。</p>
+{% endblock %}
+
+{% block header_extra %}{% endblock %}
+
+{% block main %}
+            <div class="column-3-unit">
+                <div class="list qna search loose">
+                <h2>搜索：提及<span id="kw" class="kw">{{ kw }}</span>的问答有 {{ rcount }} 个</h2>
+                <div class="content">
+                    <ul>
+                    {% load short %}
+                    {% load context %}
+                    {% for q in qs %}
+                    <li>
+                    	<h3><a href="/view/{{ q.id }}/"><span class="who">{{ q.writername }}：</span><span class="id">#{{ q.id }}</span> <span class="what">{{ q.title }}</span></a></h3>
+						<p>{{ q.content|context:kw }}</p>
+						<ul class="a">
+							{% for a in q.anss %}
+							<li>
+								<p><span class="who">{{ a.writer }}：</span>{{ a.content|context:kw }}</p>
+							</li>
+							{% endfor %}
+						</ul>
+                        <div class="read-more"><a href="/view/{{ q.id }}/">阅读全文…</a></div>
+                    </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+                </div>
+            </div>
+            <div class="column-sep"></div>
+            <div class="column-1-unit">
+{% include "module-q-entrance.html" %}
+{% include "module-shortcut.html" %}
+{% include "module-search.html" %}
+            </div>
+{% endblock %}

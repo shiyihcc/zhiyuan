@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}{% endblock %}
+
+{% block note %}{% endblock %}
+
+{% block header_extra %}{% endblock %}
+
+{% block main %}
+<ul>
+{% for t in ts %}
+<li><a href="/tag/{{ t.name }}/">{{ t.name }}</a> <abbr title="question">{{ t.qcount }}qs</abbr> <abbr title="comment">{{ t.ccount }}cs</abbr></li>
+{% endfor %}
+</ul>
+{% endblock %}

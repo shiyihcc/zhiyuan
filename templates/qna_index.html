@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}{% endblock %}
+
+{% block note %}
+            <p>这里是问答的大本营。</p>
+            <p>我们为您精心挑选了最具参考价值的问答，您也可以按照答复或提问的时间顺序来查看所有的问答。</p>
+            <p>希望了解某所大学或某个专业？现在就提问吧！</p>
+{% endblock %}
+
+{% block header_extra %}{% endblock %}
+
+{% block main %}
+            <div class="column-2-unit">
+                <div class="list qna">
+                    <h2>精选问答</h2>
+                    <div class="content">
+                        <ul>
+                            {% load short %}
+                            {% for sa in sas %}
+                            <li>
+                                <h3><a href="/view/{{ sa.father.id }}/"><span class="who">{{ sa.father.writername }}：</span><span class="what"><span class="id">#{{ sa.father.id }}</span> {{ sa.title }}</span></a></h3>
+                                <p><a href="/view/{{ sa.father.id }}/"><span class="who">{{ sa.writer }}：</span>{{ sa.content|short:80 }}</a></p>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="column-sep"></div>
+            <div class="column-1-unit">
+{% include "module-latest-a.html" %}
+            </div>
+            <div class="column-sep"></div>
+            <div class="column-1-unit">
+{% include "module-q-entrance.html" %}
+{% include "module-shortcut.html" %}
+{% include "module-search.html" %}
+{% include "module-latest-q.html" %}
+            </div>
+{% endblock %}

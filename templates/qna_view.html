@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+    <style type="text/css">
+	div.qna, div.senior {
+		margin-bottom: 20px;
+	}
+	
+	div.qna.loose h2 {
+		position: relative;
+		zoom: 1;
+	}
+	
+	/*
+a#xn_share {
+		position: absolute;
+		right: 16px;
+		top: 8px;
+		height: 23px;
+	}
+	
+	a#xn_share span {
+		font-size: 12px;
+		line-height: 22px;
+	}
+*/
+    </style>
+{% endblock %}
+
+{% block note %}{% endblock %}
+
+{% block header_extra %}{% endblock %}
+
+{% block main %}
+            <div class="column-3-unit">
+                <div class="list qna loose">
+                    <h2>问：<span class="id">#{{ id }}</span> <strong>{{ q.title }}</strong>
+                    	<!-- <a id="xn_share" name="xn_share" type="button" href="#">分享</a><script src="http://static.connect.renren.com/js/share.js" type="text/javascript"></script> -->
+                    </h2>
+                    <div class="content">
+			{% load gravatar %}
+                    	<div class="avatar questioner fallback"><div class="prior" style="background-image: url('{% gravatar_url q.email %}');"></div></div>
+                		<div class="info q"><span class="who">{{ q.writername }}</span><span class="when">{{ q.time|date }}</span></div>
+                    	<div class="text-body">
+                    		{{ q.content|linebreaks }}
+                        </div>
+                        <div class="tag">
+ 							{% if ts or us %}
+                            {% for t in ts %}<a href="/tag/{{ t.name }}/">#{{ t.name }}</a>{% endfor %}{% for u in us %}<a href="/university/{{ u.name }}/">#{{ u.name }}</a>{% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="list senior loose">
+                    <h2>回应</h2>
+                    <div class="content">
+                        {% if not anss_adds %}
+                        暂时还没有回应。
+                        {% endif %}
+                    	<ul>
+                            {% load markup %}
+                    		{% for a in anss_adds %}
+                    			<li>
+                    			{% if a.type = 'ANS' %}
+                    				<div class="avatar answerer fallback"><div class="prior" style="background-image: url('/static/img/avatars/{{ a.senior.avatar }}');"></div></div>
+                					<div class="info a"><span class="who">{{ a.writer }}</span><span class="university">{{ a.senior.university }}</span><span class="major">{{ a.senior.major }}</span><span class="grade">{{ a.senior.gyear }}级</span><span class="when">{{ a.time|date }}</span></div>
+                					{% if a.past %}<div class="out-of-date">答于{{ a.time|date:"Y年" }}，可能不适应最新情况</div>{% endif %}
+                					<div class="text-body">
+                                		{{ a.content|markdown }}
+                                	</div>
+                                	<div class="thank"><a href="#" data-answer-id="{{ a.id }}">• 感谢学长</a></div>
+                    			{% else %}
+                    				<div class="avatar questioner fallback"><div class="prior" style="background-image: url('{% gravatar_url a.email %}');"></div></div>
+                    				<div class="info q"><span class="who">{{ a.writername }}</span><span class="append">追加提问：</span><span class="when">{{ a.time|date }}</span></div>
+                    				<div class="text-body">
+                    				{{ a.content|linebreaks }}
+                        			</div>
+                    			{% endif %}
+                    			</li>
+                    		{% endfor %}
+                    	</ul>
+                    </div>
+                </div>
+				<div class="box q loose">
+                    <h2 class="append">追加疑问</h2>
+                    <div class="content">
+                        <p>仅在你的疑问与这个问答<strong>密切相关</strong>时在此追加。否则应当<a class="q" href="/q/">单独提出疑问</a>。</p>
+                        <form method="post" action="/view/{{ q.id }}/">
+                            {{ form.non_field_errors }}
+                            <h3>• 留下个人信息</h3>
+                            {{ form.writer.errors }}
+                            <p><label>姓名：{{ form.writer }}</label><label>{{ form.privatename }}对姓名保密</label></p>
+                            {{ form.email.errors }}
+                            <p><label>邮箱：{{ form.email }}</label><label><input name="privateco" type="checkbox" id="privateco" checked="checked" disabled="disabled" />对邮箱地址保密</label></p>
+                            <h3>• 填写想要追加的疑问内容</h3>
+                            {{ form.content.errors }}
+                            <p>{{ form.content }}</p>
+                            <input class="input-submit" type="submit" name="submit" id="submit" value="提交疑问" alt="提交疑问" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="column-sep"></div>
+            <div class="column-1-unit">
+{% include "module-q-entrance.html" %}
+{% include "module-shortcut.html" %}
+{% include "module-search.html" %}
+{% if rqs %}
+    {% include "module-related-q.html" %}
+{% else %}
+    {% include "module-latest-a.html" %}
+{% endif %}
+            </div>
+{% endblock %}

@@ -1,0 +1,17 @@
+                <div class="list senior module">
+                    <h2><a href="/senior/">学长们</a></h2>
+                    <div class="content">
+                        <ul>
+                            {% for s in ss %}
+                            <li>
+                                <div class="avatar answerer fallback"><div class="prior" style="background-image: url('/static/img/avatars/{{ s.avatar }}');"></div></div>
+                                <div class="info">
+                                	<p class="who">{{ s.name }}</p>
+                                	<p class="university">{{ s.university }}</p>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        <a href="/senior/" class="more">学长信息汇总</a>
+                    </div>
+                </div>

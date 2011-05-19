@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+    <style type="text/css">
+    div.special li.other {
+	display: none;
+    }
+    </style>
+{% endblock %}
+
+{% block note %}
+            <p>这里可以集中查询各类信息。</p>
+			<p>我们对公开的问答和感悟进行了集中分类，可以点击进入专题查看相关内容。</p>
+			<p>内容太少以至于没有想要知道的信息？现在就提问吧！</p>
+{% endblock %}
+
+{% block header_extra %}{% endblock %}
+
+{% block main %}
+            <div class="column-2-unit">
+                <div class="list special">
+                    <h2 class="with-link">
+                    	高校
+                    	<div class="link"><a href="#" id="sort-by-count" style="display: none;">按关注度排序</a><a href="#" id="sort-by-name" style="display: none;">按名称排序</a></div>
+                    </h2>
+                    <div class="content">
+                        <ul id="university-list">
+			    {% for u in us %}
+			    <li{% if u.other %} class="other"{% endif %} data-order-name="{{ u.order_name }}" data-order-count="{{ u.order_count }}">
+                                <a href="/university/{{ u.name }}/">
+				    <h3>{{ u.name }} <span class="statistic">{{ u.qcount }} 个问答{% if u.ccount > 0 %} • {{ u.ccount }} 篇感悟{% endif %} • {{ u.scount }} 位学长</span></h3>
+                                </a>
+                                <p class="links clear">
+				    {% if u.website %}<a href="{{ u.website }}" target="_blank">官方网站</a>{% endif %}
+				    {% if u.zsbsite %}<a href="{{ u.zsbsite }}" target="_blank">招生网站</a>{% endif %}
+				    <a href="http://kaoshi.edu.sina.com.cn/collegedb/collegelist.php?_action=t&amp;name={{ u.name_gbk }}" target="_blank">新浪</a>
+				    <a href="http://gaokao.wenda.sohu.com//jsp/College.do?type=college&amp;key={{ u.name_gbk }}" target="_blank">搜狐</a>
+				    <a href="http://data.edu.qq.com/college/search_col.shtml?query={{ u.name }}" target="_blank">腾讯</a>
+				    <a href="http://edu.people.gkcx.eol.cn/searchSchoolName.html?keyWord={{ u.name }}" target="_blank">人民网</a>
+                                </p>
+                            </li>
+			    {% endfor %}
+                        </ul>
+                        <a id="university-all" class="more" href="#">显示全部已涉及的高校</a>
+                    </div>
+                </div>
+            </div>
+            <div class="column-sep"></div>
+            <div class="column-1-unit">
+                <div class="list special">
+                    <h2>标签</h2>
+                    <div class="content">
+                        <ul id="tag-list">
+			    {% for t in ts %}
+			    <li{% if t.other %} class="other"{% endif %}>
+				<a href="/tag/{{ t.name }}/">
+				<h3>{{ t.name }} <span class="statistic">{{ t.qcount }} 个问答{% if t.ccount > 0 %} • {{ t.ccount }} 篇感悟{% endif %}</span></h3>
+				</a>
+				<div class="clear"></div>
+			    </li>
+			    {% endfor %}
+                        </ul>
+                        <a id="tag-all" class="more" href="#">显示全部标签</a>
+                    </div>
+                </div>
+            </div>
+            <div class="column-sep"></div>
+            <div class="column-1-unit">
+{% include "module-q-entrance.html" %}
+{% include "module-shortcut.html" %}
+{% include "module-search.html" %}
+            </div>
+{% endblock %}

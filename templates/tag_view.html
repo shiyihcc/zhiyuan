@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+    <style type="text/css">
+    
+    p.desc {
+    	color: #3E76BB;
+    }
+    
+    div.senior .who, div.senior .summary {
+    	padding-left: 0;
+    }
+    
+    
+    li.comment p {
+    	padding-left: 57px;
+    }	
+    
+    p.info {
+    	line-height: 24px;
+    	color: #efc337;
+    }
+    
+    a.who {
+    	font-size: 16px;
+    	line-height: 24px;
+    	font-weight: bold;
+    	color: #E2AC00;
+    }
+    
+    a.read-more {
+    	color: #E2AC00;
+    	font-weight: bold;
+    }
+    </style>
+{% endblock %}
+
+{% block note %}{% endblock %}
+
+{% block header_extra %}{% endblock %}
+
+{% block main %}
+            <div class="column-2-unit">
+				<div class="box special">
+                    <h2>标签：<strong>{{ t.name }}</strong></h2>
+                    <div class="content">
+                        <p class="desc">{{ t.desc }}</p>
+                	</div>
+                </div>
+                <div class="list senior tight">
+                	<h2>学长感悟</h2>
+                	<div class="content">
+                		<ul>
+                			{% for c in cs %}
+                			<li class="comment">
+                				<div class="avatar answerer fallback"><div class="prior" style="background-image: url('/static/img/avatars/{{ c.senior.avatar }}');"></div></div>
+                				<div class="info a"><span class="who">{{ c.writer }}</span><span class="university">{{ c.senior.university }}</span><span class="major">{{ c.senior.major }}</span><span class="detail">{{ c.senior.gyear }}级</span></div>
+                        	    <div class="summary">
+                                    {% load markup %}
+                        	    	{{ c.summary|markdown }}
+									{% if c.content %}
+									<div class="read-more"><a href="/comment/{{ c.id }}">阅读全文…</a></div>
+									{% endif %}
+                            	</div>
+                			</li>
+                			{% endfor %}
+                		</ul>
+                    </div>
+                </div>
+            </div>
+            <div class="column-sep"></div>
+            <div class="column-1-unit">
+                <div class="list qna">
+                    <h2>相关问答</h2>
+                    <div class="content">
+                        <ul>
+                            {% load short %}
+                            {% for q in qs %}
+                            <li>
+                                <h3><a href="/view/{{ q.id }}/"><span class="who">{{ q.writername }}：</span><span class="what">{{ q.title }} <span class="id">#{{ q.id }}</span></span></a></h3>
+                                <p><a href="/view/{{ q.id }}/"><span class="who">{{ q.a.writer }}：</span>{{ q.a.content|short:90 }}</a></p>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="column-sep"></div>
+            <div class="column-1-unit">
+{% include "module-q-entrance.html" %}
+{% include "module-shortcut.html" %}
+{% include "module-search.html" %}
+				<div class="list special">
+                    <h2>标签</h2>
+                    <div class="content">
+                        <ul id="tag-list">
+			    {% for t in ts %}
+			    <li>
+				<a href="/tag/{{ t.name }}/">
+				<h3>{{ t.name }} <span class="statistic">{{ t.qcount }} 个问答{% if t.ccount > 0 %} • {{ t.ccount }} 篇感悟{% endif %}</span></h3>
+				</a>
+				<div class="clear"></div>
+			    </li>
+			    {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+{% endblock %}

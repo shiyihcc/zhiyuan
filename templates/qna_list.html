@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+    <style type="text/css">
+    div.qna li.private {
+        display: none;
+    }
+    </style>
+{% endblock %}
+
+{% block note %}
+            <p>这里是所有的问答条目，越晚创建的问答条目越靠上。</p>
+{% endblock %}
+
+{% block header_extra %}{% endblock %}
+
+{% block main %}
+            <div class="column-3-unit">
+                <div class="list qna all loose">
+                    <h2>所有问答 <label>只显示精选问答<input id="checkbox_selectedonly" type="checkbox" /></label> <label>显示非公开问答<input type="checkbox" id="checkbox_private" /></label></h2>
+                    <div class="content">
+                    <ul id="q-list">
+                        {% load short %}
+                        {% for q in qs %}
+                        {% if q.publicall %}
+                        <li{% if q.selected %} class="selected"{% endif %}>
+                            <h3><a href="/view/{{ q.id }}/"><span class="who">{{ q.writername }}：</span><span class="id">#{{ q.id }}</span> <span class="what">{{ q.title }}</span></a></h3>
+                            <p>{{ q.content|short:120 }}</p>
+                            <ul class="a">
+                                {% for a in q.anss %}
+                                <li>
+                                    <p><span class="who">{{ a.writer }}：</span>{{ a.content|short:175 }}</p>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            <div class="read-more"><a href="/view/{{ q.id }}/">阅读全文…</a></div>
+                        </li>
+                        {% else %}
+                        <li class="private">
+							<h3><a href="/view/{{ q.id }}/"><span class="who">匿名：</span><span class="what">非公开问题 <span class="id">#{{ q.id }}</span></span></a></h3>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="column-sep"></div>
+            <div class="column-1-unit">
+{% include "module-q-entrance.html" %}
+{% include "module-shortcut.html" %}
+{% include "module-search.html" %}
+            </div>
+{% endblock %}

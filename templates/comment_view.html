@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+    <style type="text/css">
+    div.senior li {
+    	border-width: 0;
+    	margin-bottom: 0;
+    }
+    </style>
+{% endblock %}
+
+{% block note %}{% endblock %}
+
+{% block header_extra %}{% endblock %}
+
+{% block main %}
+            {% load plusplus %}
+            <div class="column-3-unit">
+                <div class="box senior loose">
+                    <h2 class="with-link">学长感悟
+                    	<div class="link">{% if c.tag %}<a href="/tag/{{ c.tag.name }}">返回 <strong>{{ c.tag.name }}</strong></a>{% endif %}{% if c.university %}<a href="/university/{{ c.university.name }}">返回 <strong>{{ c.university.name }}</strong></a>{% endif %}</div>
+                    </h2>
+                    <div class="content">
+                        <ul>
+                			<li class="comment">
+                				<div class="avatar answerer fallback"><div class="prior" style="background-image: url('/static/img/avatars/{{ c.senior.avatar }}');"></div></div>
+                				<div class="info senior"><span class="who">{{ c.writer }}</span><span class="university">{{ c.senior.university }}</span><span class="major">{{ c.senior.major }}</span><span class="detail">{{ c.senior.gyear }}级</span></div>
+                        	    <div class="text-body">
+                                    {% load markup %}
+                        	    	{% if c.content %}
+                                        {{ c.content|markdown }}
+                                    {% else %}
+                                        {{ c.summary|markdown }}
+                                    {% endif %}
+                            	</div>
+                			</li>
+                		</ul>
+                    </div>
+                    <div class="bottom-link">
+                    	<div class="link">{% if c.tag %}<a href="/tag/{{ c.tag.name }}" class="back">返回 <strong>{{ c.tag.name }}</strong></a>{% endif %}{% if c.university %}<a href="/university/{{ c.university.name }}" class="back">返回 <strong>{{ c.university.name }}</strong></a>{% endif %}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="column-sep"></div>
+            <div class="column-1-unit">
+{% include "module-q-entrance.html" %}
+{% include "module-shortcut.html" %}
+{% include "module-search.html" %}
+            </div>
+{% endblock %}

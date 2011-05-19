@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+    <style type="text/css">
+    ul.errorlist li {
+    	border-bottom-width: 0;
+    	color: #5EC433;
+    }
+    ul.errorlist li:before {
+    	content: "▼ ";
+    }
+    </style>
+{% endblock %}
+
+{% block note %}
+            <p>这里是提问区，感谢你对我们的信任。</p>
+{% endblock %}
+
+{% block header_extra %}
+{% endblock %}
+
+{% block main %}
+	    <div class="column-3-unit">
+		<div class="box q loose">
+		    <h2>提问</h2>
+		    <div class="content">
+			<p>尽管我们允许非公开的问答，但我们强烈鼓励<strong>公开疑问内容</strong>，由此你与学长的问答才能发挥最大价值。</p>
+			<p>建议在提问前先<strong>使用右侧的搜索功能</strong>，看看是不是已经存在类似的问题。</p>
+			<form id="askingform" method="post" action="/q/">
+			    {{ form.non_field_errors }}
+			    
+			    <h3>• 留下个人信息</h3>
+			    <p>请填写真实的个人信息，以便问答有进展时我们能通知你。</p>
+			    <p><strong>全部三项信息都需要填写。</strong>邮箱地址和手机号码只用于联络，始终对外“保密”。</p>
+			    {{ form.writer.errors }}
+			    <p><label>姓名：{{ form.writer }}</label><label>{{ form.privatename }}对姓名保密</label></p>
+			    {{ form.email.errors }}
+			    <p><label>邮箱：{{ form.email }}</label><label><input name="privateco" type="checkbox" id="privateco" checked="checked" disabled="disabled" />对邮箱地址和手机号码保密</label></p>
+			    {{ form.mobileno.errors }}
+			    <p><label>手机：{{ form.mobileno }}</label></p>
+			    
+			    <h3>• 填写疑问内容</h3>
+			    <p>我们的优势在于对高校、专业以及高考的切身体验。<strong>而我们无力分析今年的分数与排名状况</strong>，请谅解。</p>
+			    <p>请在正文中使用学校的<strong>全称</strong>，以便他人搜索。</p>
+			    {{ form.title.errors }}
+			    <p><label>标题：{{ form.title }} 从正文中抽取关键词，编写能体现疑问内容的标题。</label></p>
+			    {{ form.content.errors }}
+			    <p>{{ form.content }}</p>
+			    <p>学长们在紧张的期中考试期间抽出时间对问题进行答复。所以，为了让大家的努力释放最大价值，请尽量发扬<strong>共享精神</strong>，公开问答内容。这是一个“大家帮助大家”的平台。</p>
+			    <p>如果只是不希望透露自己的的姓名，可选中第一部分中的“对姓名保密”，而不必为此选中下面的“不公开问答内容”。</p>
+			    <p><label id="private">{{ form.privateall }}不公开问答内容</label></p>
+			    <p class="private_warn" style="color: #5EC433;"><strong style="background-color: #ED5026; color: #FFF; padding: 0 6px;">注意</strong> 如果选中“不公开问答内容”，为了再次查看你的问答，我们将要求你提供准确的“姓名”、“邮箱”和“手机”信息。所以，请再次检查第一部分的个人信息是否准确无误。</p>
+
+			    <h3>• 再次确认</h3>
+			    <p>再次确认以上信息没有差错，然后就可以提交这份疑问了。</p>
+			    <input class="input-submit" type="submit" name="submit" id="submit" value="提交疑问" alt="提交疑问" />
+			</form>
+		    </div>
+		</div>
+	    </div>
+	    <div class="column-sep"></div>
+	    <div class="column-1-unit">
+{% include "module-shortcut.html" %}
+{% include "module-search.html" %}
+{% include "module-latest-a.html" %}
+	    </div>
+{% endblock %}

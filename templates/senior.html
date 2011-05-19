@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+    <style type="text/css">
+    table {
+        width: 936px;
+        margin: 0;
+    }
+    thead {
+        background-color: #F9D84B;
+        color: #FFF;
+        border-bottom: 1px solid #EDC729;
+        line-height: 14px;
+    }
+    tfoot {
+        background-color: #F9D84B;
+        color: #FFF;
+        border-top: 1px solid #EDC729;
+        line-height: 14px;
+    }
+    thead th, tfoot td {
+        font-weight: normal;
+    }
+    tr {
+        height: 60px;
+        border-bottom: 1px dotted #EDC729;
+    }
+    th, td {
+        padding: 5px;
+    }
+    td.name, td.wl {
+        text-align: center;
+    }
+    td.uni, td.ma, td.me, th.uni, th.ma, th.me {
+        text-align: left;
+    }
+    td.avatar-td {
+        width: 50px;
+    }
+    th.name {
+        width: 64px;
+    }
+    tbody td.name {
+        width: 64px;
+        font-size: 16px;
+        color: #e6b51a;
+    }
+    th.wl, td.wl {
+        width: 36px;
+    }
+    th.uni, td.uni {
+        width: 140px;
+    }
+    th.ma, td.ma {
+        width: 320px;
+    }
+    th.me, td.me {
+        width: 266px;
+    }
+    h2 {
+        clear: both;
+    }
+    div.s {
+        border-bottom: 1px dotted #EDC729;
+        padding: 5px;
+        width: 224px;
+        float: left;
+    }
+    div.s img.avatar {
+        margin-right: 18px;
+    }
+    div.s p.name {
+        color: #E2AC00;
+        font-size: 16px;
+        margin: 5px 0 0 0;
+    }
+    div.s p.name span {
+        cursor: help;
+    }
+    div.s p.uni {
+        margin: 0;
+    }
+    
+    div.list p.name, div.list p.uni {
+    	padding-left: 70px;
+    }
+    </style>
+{% endblock %}
+
+{% block note %}
+            <p>这里有参与问答的学长们的基本信息。</p>
+            <p>在这里没有找到就读于你感兴趣的大学或学习你感兴趣的专业的学长？</p>
+            <p>我们二〇一〇届高三毕业生有近六百人，如今散布在一百二十余所高校，二百五十余个不同的专业中。我们的编辑团队会不断联系更多学长（包括〇七到〇九届）来解答疑问——你也可以在提问时明确邀请某所高校或某个专业的学长来回答。</p>
+{% endblock %}
+
+{% block header_extra %}{% endblock %}
+
+{% block main %}
+            <div class="column-4-unit">
+
+                <div class="list senior">
+                    <div class="content" style="width: 936px; padding: 0;">
+                        <h2 style="text-align: center;">参与问答的一〇届学长</h2>
+                        <table>
+                            <tboby>
+                                {% for s in fss %}
+                                <tr id="{{ s.name }}">
+                                    <td class="avatar-td">
+                                    	<div class="avatar answerer fallback"><div class="prior" style="background-image: url('/static/img/avatars/{{ s.avatar }}');"></div></div>
+                                    </td>
+                                    <td class="name">{{ s.name }}</td>
+                                    <td class="wl">{% if s.subject = 'S' %}理工{% else %}文史{% endif %}</td>
+                                    <td class="uni">{{ s.university }}</td>
+                                    <td class="ma">{{ s.major }}</td>
+                                    <td class="me">{{ s.notes }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class="">
+                            {% for s in oss %}
+                            <div class="s" id="{{ s.name }}">
+                                <div class="avatar answerer fallback"><div class="prior" style="background-image: url('/static/img/avatars/{{ s.avatar }}');"></div></div>
+                                <p class="name"><span title="{{ s.major }}{% if s.major and s.notes %} {% endif %}{{ s.notes }}">{{ s.name }}</span></p>
+                                <p class="uni">{{ s.university }}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <h2 style="text-align: center;">参与问答的往届学长</h2>
+                        <div class="">
+                            {% for s in pss %}
+                            <div class="s" id="{{ s.name }}">
+                                <div class="avatar answerer fallback"><div class="prior" style="background-image: url('/static/img/avatars/{{ s.avatar }}');"></div></div>
+                                <p class="name"><span title="{{ s.major }}{% if s.major and s.notes %} {% endif %}{{ s.notes }}">{{ s.name }}</span></p>
+                                <p class="uni">{{ s.university }}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <h2 style="text-align: center;">网站制作者</h2>
+                        <div class="">
+                            {% for s in ms %}
+                            <div class="s" id="{{ s.name }}">
+                                <div class="avatar answerer fallback"><div class="prior" style="background-image: url('/static/img/avatars/{{ s.avatar }}');"></div></div>
+                                <p class="name"><span title="{{ s.major }}{% if s.major and s.notes %} {% endif %}{{ s.notes }}">{{ s.name }}</span></p>
+                                <p class="uni">{{ s.university }}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <br class="clear" />
+                    </div>
+                </div>
+
+            </div>
+{% endblock %}

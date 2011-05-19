@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}{% endblock %}
+
+{% block note %}{% endblock %}
+
+{% block header_extra %}{% endblock %}
+
+{% block main %}
+            <div class="column-4-unit">
+                <div class="box qna">
+                    <h2>验证个人信息以查看非公开问答</h2>
+                    <div class="content">
+			{% if auth_failed %}您输入的个人信息有误...{% endif %}
+                        <form id="infoform" method="post" action="/view/auth/{{ id }}/">
+			    {{ form.non_field_errors }}
+			    {{ form.name.errors }}
+			    <p><label>姓名：{{ form.name }}</label></p>
+			    {{ form.mobileno.errors }}
+			    <p><label>手机：{{ form.mobileno }}</label></p>
+			    <p><input type="submit" name="submit" id="submit" value="查看" /></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+{% endblock %}

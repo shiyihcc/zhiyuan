@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>{{ page_title }} ‹ {{ settings.SITE_NAME }}</title>
+    <script src="/static/js/jquery.js" type="text/javascript"></script>
+    {% for js in jsfiles %}
+    <script src="/static/js/{{ js }}.js" type="text/javascript"></script>
+    {% endfor %}
+    <link rel="stylesheet" href="/static/css/style.css" />
+    {% block javascript %}{% endblock %}
+    {% block stylesheet %}{% endblock %}
+    <link rel="shortcut icon" href="/static/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/static/img/apple-touch-icon.png" />
+    {# should be same as defined in settings.py (TEST_HOST) #}
+    {% if request.get_host != "z.hcc.im" %}
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-22769678-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    {% endif %}
+</head>
+
+<body>
+
+<div id="top-wrapper">
+
+    <div id="header-wrapper">
+        <div id="header">
+            <a id="logo" href="/">{{ settings.SITE_NAME }}</a>
+            {% block header_extra %}{% endblock %}
+            <ul id="nav">
+                <li><a href="/"{% if section == "index" %} class="current-page"{% endif %}>首页</a></li>
+                <li><a href="/special/"{% if section == "special" %} class="current-page"{% endif %}>专题</a></li>
+                <li><a href="/qna/"{% if section == "qna" %} class="current-page"{% endif %}>问答</a></li>
+                <li><a href="/senior/"{% if section == "senior" %} class="current-page"{% endif %}>学长们</a></li>
+                <li><a href="/about/"{% if section == "about" %} class="current-page"{% endif %}>关于我们</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="note-wrapper">
+        <div id="note">
+        {% block note %}{% endblock %}
+        </div>
+    </div>
+
+    <div id="main-wrapper">
+        <div id="main">
+            {% block main %}{% endblock %}
+            <div class="clear"></div>
+        </div>
+    </div>
+
+</div>
+
+<div id="bottom-wrapper">
+
+    <div id="footer">
+        <p>© 问答内容之所有权利由原作者保留。未经许可，不得以任何方式使用。</p>
+        <p>如有任何疑问，请联系我们：<a href="mailto:zhiyuan@hcc.im">zhiyuan@hcc.im</a></p>
+        {% if exectime %}<p class="debug">Execution time: {{ exectime }}</p>{% endif %}
+    </div>
+
+</div>
+
+</body>
+
+</html>
+

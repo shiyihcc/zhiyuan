@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+    <style type="text/css">    
+    div.special p.links {
+    	padding-bottom: 7px;
+    	border-bottom-style: dotted;
+    	border-bottom-width: 1px;
+    	border-color: inherit;
+    	margin: 0;
+    }
+    
+    div.special img.univ {
+    	float: right;
+    	margin: 7px 0 0 -20px;
+    }
+    
+    div.special div.info {
+    	font-size: 16px;
+    	color: #3E76BB;
+    	margin-right: 20px;
+    	float: left;
+    	margin-top: 7px;
+    }
+    
+    div.special div.info abbr {
+    	font-weight: bold;
+    	display: inline-block;
+    	width: 32px;
+		color: #FFF;
+		background-color: #3E76BB;
+		border-radius: 2px;
+		line-height: 1;
+		margin-right: 8px;
+		padding: 5px 8px;
+		text-align: center;
+		border-width: 0;
+    }
+    
+    div.senior .who, div.senior .summary {
+    	padding-left: 0;
+    }
+    
+    
+    li.comment p {
+    	padding-left: 57px;
+    }	
+    
+    p.info {
+    	line-height: 24px;
+    	color: #efc337;
+    }
+    
+    a.who {
+    	font-size: 16px;
+    	line-height: 24px;
+    	font-weight: bold;
+    	color: #E2AC00;
+    }
+    
+    a.read-more {
+    	color: #E2AC00;
+    	font-weight: bold;
+    }
+    
+    </style>
+{% endblock %}
+
+{% block note %}{% endblock %}
+
+{% block header_extra %}{% endblock %}
+
+{% block main %}
+            <div class="column-2-unit">
+                <div class="box special">
+                    <h2>高校：<strong>{{ u.name }}</strong></h2>
+                    <div class="content">
+                        <p class="links">
+                            {% if u.website %}<a href="{{ u.website }}" target="_blank">官方网站</a>{% endif %}
+                            {% if u.zsbsite %}<a href="{{ u.zsbsite }}" target="_blank">招生网站</a>{% endif %}
+                            <a href="http://kaoshi.edu.sina.com.cn/collegedb/collegelist.php?_action=t&name={{ u.name_gbk }}" target="_blank">新浪</a>
+                            <a href="http://gaokao.wenda.sohu.com//jsp/College.do?type=college&key={{ u.name_gbk }}" target="_blank">搜狐</a>
+                            <a href="http://data.edu.qq.com/college/search_col.shtml?query={{ u.name }}" target="_blank">腾讯</a>
+                            <a href="http://edu.people.gkcx.eol.cn/searchSchoolName.html?keyWord={{ u.name }}" target="_blank">人民网</a>
+                        </p>
+                        <img class="univ" src="/static/img/universities/{{ u.name }}.jpg" />
+                        <div class="info"><abbr title="21 世纪的 100 所重点大学工程，共 112 所">211</abbr>{% if u.is211 %}是{% else %}否{% endif %}</div>
+                        <div class="info"><abbr title="建设世界一流大学工程（此处不含 985 工程优势学科创新平台），共 39 所">985</abbr>{% if u.is985 %}是{% else %}否{% endif %}</div>
+                        <div class="info"><abbr title="所在地区">地区</abbr>{{ u.province }}</div>
+                        <div class="info"><abbr title="学生人数（数据可能不准确）">学生</abbr>{% if u.nstudent %}{{ u.nstudent }} 人{% endif %}</div>
+                        <div class="clear"></div>
+                	</div>
+                </div>         
+                <div class="list senior tight">
+                	<h2>学长感悟</h2>
+                	<div class="content">
+                		<ul>
+                			{% for c in cs %}
+                			<li class="comment">
+                				<div class="avatar answerer fallback"><div class="prior" style="background-image: url('/static/img/avatars/{{ c.senior.avatar }}');"></div></div>
+                				<div class="info senior"><span class="who">{{ c.writer }}</span><span class="university">{{ c.senior.university }}</span><span class="major">{{ c.senior.major }}</span><span class="detail">{{ c.senior.gyear }}级</span></div>
+                        	    <div class="summary">
+                                    {% load markup %}
+                        	    	{{ c.summary|markdown }}
+									{% if c.content %}
+									<div class="read-more"><a href="/comment/{{ c.id }}">阅读全文…</a></div>
+									{% endif %}
+                            	</div>
+                			</li>
+                			{% endfor %}
+                		</ul>
+                    </div>
+                </div>
+            </div>
+            <div class="column-sep"></div>
+            <div class="column-1-unit">
+                <div class="list qna">
+                    <h2>相关问答</h2>
+                    <div class="content">
+                        <ul>
+                            {% load short %}
+                            {% for q in qs %}
+                            <li>
+                                <h3><a href="/view/{{ q.id }}/"><span class="who">{{ q.writername }}：</span><span class="what">{{ q.title }} <span class="id">#{{ q.id }}</span></span></a></h3>
+                                <p><a href="/view/{{ q.id }}/"><span class="who">{{ q.a.writer }}：</span>{{ q.a.content|short:90 }}</a></p>
+                            </li>
+                            {% endfor %}
+                            {% if not qs %}
+                            还没有这所高校的相关问题。如果您有什么疑问，现在就提一个问题吧。
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="column-sep"></div>
+            <div class="column-1-unit">
+{% include "module-q-entrance.html" %}
+{% include "module-shortcut.html" %}
+{% include "module-search.html" %}
+            </div>
+{% endblock %}

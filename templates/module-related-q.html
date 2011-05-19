@@ -1,0 +1,13 @@
+				<div class="list qna">
+                    <h2><a href="/qna/all/">相关提问</a></h2>
+                    <div class="content">
+                        <ul>
+                            {% for rq in rqs %}
+                            <li>
+                                <h3><a href="/view/{{ rq.id }}/"><span class="who">{{ rq.writername }}：</span><span class="what"><span class="id">#{{ rq.id }}</span> {{ rq.title }}</span></a></h3>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        <a href="/qna/all/" class="more">所有问答</a>
+                    </div>
+                </div>

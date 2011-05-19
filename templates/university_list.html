@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}{% endblock %}
+
+{% block note %}{% endblock %}
+
+{% block header_extra %}{% endblock %}
+
+{% block main %}
+<p><a href="?order=count" id="sort_by_count">按提问数量排序</a> <a href="?order=name" id="sort_by_title">按名称排序</a></p>
+<ul id="universities">
+{% for u in us %}
+<li><a href="/university/{{ u.name }}/">{{ u.name }}</a> <abbr title="question"><span id="qcount">{{ u.qcount }}qs</span></abbr> <abbr title="senior">{{ u.scount }}ss</abbr> <abbr title="comment">{{ u.ccount }}cs</abbr></li>
+{% endfor %}
+</ul>
+<p>没有找到您关心的大学？去向学长提一个问题，我们就会建立相关的专题。</p>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+	<style type="text/css">
+	#shortcut h2 {
+		background-color: transparent;
+	}
+	</style>
+{% endblock %}
+
+{% block note %}{% endblock %}
+
+{% block header_extra %}{% endblock %}
+
+{% block main %}
+            <div class="column-3-unit">
+                <div class="box q loose">
+                    <h2>疑问已提交</h2>
+                    <div class="content">
+                    	<p>我们已经收到你的疑问，并将尽快联系最合适的学长来解答。</p>
+                    	
+                        <h3>• 属于你的问答编号是</h3>
+                        <div style="margin-bottom: 14px; font-family: monospace; font-size: 84px; font-weight: bold; letter-spacing: 0.1em; color: #FFF; text-align: center; background: #3FA8C4">{{ id }}</div>
+
+                        <h3>• “问答编号”是什么？</h3>
+                        <p><strong>首先，要牢记“问答编号”。</strong>你可以把它记在笔记本里、《五三》里、甚至语文书里，反正最好是写下来。</p>
+                        <p>为了能迅速找回自己的问答，我们提供这个简单的“问答编号”。只要在首页等地的“速达”面板输入这个编号，就能迅速寻回你的问答。</p>
+                        
+                        <h3>• 现在就试试“速达”面板！</h3>
+						<div id="shortcut">
+							<h2>速达</h2>
+							<p class="description">在下面输入问答编号并<br />点击箭头来查看某个回答</p>
+							<form id="shortcutform" action="#">
+								<div>
+									<input type="text" id="qid" value="1" />
+									<input type="image" id="shortcut-arrow" class="shortcut-arrow" src="/static/img/shortcut-arrow.png" alt="速达" />
+								</div>
+							</form>
+						</div>
+                    </div>
+                </div>
+            </div>
+            <div class="column-sep"></div>
+            <div class="column-1-unit">
+{% include "module-q-entrance.html" %}
+{% include "module-search.html" %}
+{% include "module-latest-a.html" %}
+            </div>
+{% endblock %}
