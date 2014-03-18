@@ -67,18 +67,32 @@
                 		</ul>
                     </div>
                 </div>
+                <div class="list senior tight">
+                	<h2>精选问答</h2>
+                	<div class="content">
+                		<ul>
+                			{% load short %}
+                            {% for q in fqs %}
+                            <li>
+                                <h3><a href="/view/{{ q.id }}/"><span class="who">{{ q.writername }}：</span><span class="what">{{ q.title }} <span class="id">#{{ q.id }}</span></span></a></h3>
+                                <p><a href="/view/{{ q.id }}/"><span class="who">{{ q.a.writer }}：</span>{{ q.a.content|short:90 }}</a></p>
+                            </li>
+                            {% endfor %}
+                		</ul>
+                    </div>
+                </div>
             </div>
             <div class="column-sep"></div>
             <div class="column-1-unit">
                 <div class="list qna">
-                    <h2>相关问答</h2>
+                    <h2>相关提问</h2>
                     <div class="content">
                         <ul>
                             {% load short %}
                             {% for q in qs %}
                             <li>
                                 <h3><a href="/view/{{ q.id }}/"><span class="who">{{ q.writername }}：</span><span class="what">{{ q.title }} <span class="id">#{{ q.id }}</span></span></a></h3>
-                                <p><a href="/view/{{ q.id }}/"><span class="who">{{ q.a.writer }}：</span>{{ q.a.content|short:90 }}</a></p>
+                                <p><a href="/view/{{ q.id }}/">{{ q.content|short:90 }}</a></p>
                             </li>
                             {% endfor %}
                         </ul>

@@ -43,7 +43,7 @@
 						<ul class="a">
 							{% for a in q.anss %}
 							<li>
-								<p><span class="who">{{ a.writer }}：</span>{{ a.content|context:kw }}</p>
+								<p><span class="who">{{ a.writer }}：</span>{% if a.writer != kw %}{{ a.content|context:kw }}{% else %}{{ a.content|short:80 }}{% endif %}</p>
 							</li>
 							{% endfor %}
 						</ul>

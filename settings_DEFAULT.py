@@ -1,7 +1,7 @@
 # Settings for Zhiyuan based site.
 # -*- coding: UTF-8 -*-
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 STATIC_PATH = './static'
 
@@ -21,10 +21,10 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.mysql',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'dbname',                      # Or path to database file if using sqlite3.
         'USER': 'dbuser',                      # Not used with sqlite3.
-        'PASSWORD': 'dbpassword',                  # Not used with sqlite3.
+        'PASSWORD': 'dbpassword',              # Not used with sqlite3.
         'HOST': 'dbhost',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': 'dbport',                      # Set to empty string for default. Not used with sqlite3.
     }
@@ -55,17 +55,17 @@ USE_L10N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = ''
+STATIC_ROOT = '/var/quan/zhiyuan/static/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = ''
+STATIC_URL = '/static/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/media/'
+ADMIN_MEDIA_PREFIX = '/static/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'miaowmiaowmiaowww!!!'
@@ -79,8 +79,7 @@ TEMPLATE_LOADERS = (
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.middleware.csrf.CsrfResponseMiddleware',
+#    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 )

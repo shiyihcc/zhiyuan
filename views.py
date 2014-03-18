@@ -9,7 +9,7 @@ from django import forms
 import datetime
 from common import validate_mobileno
 from zy.models import *
-from settings import TEST_HOST
+from settings import TEST_HOST  
 
 def index(request):
     host = request.get_host()
@@ -19,6 +19,12 @@ def index(request):
     jsfiles = ['box', 'jquery.cookie', 'index']
     anss = Answer.objects.filter(father__publicall=1, selected=True).order_by('-time')[:6]
     ss = Senior.objects.filter(type='C').order_by('-gyear', '?')
+    
+    university_count = University.objects.count()
+    officialsite_count = university_count * 2
+    website_count = university_count * 4
+    tag_count = Tag.objects.count()
+    
     return render_to_response('index.html', locals())
 
 def special(request):
@@ -52,10 +58,10 @@ def senior(request):
     section = 'senior'
     page_title = '学长们'
     jsfiles = ['senior']
-    fss = Senior.objects.filter(type='C').order_by('-gyear', '?')
-    oss = list(Senior.objects.filter(gyear=2010).exclude(type='C'))
+    #fss = Senior.objects.filter(type='C').order_by('-gyear', '?')
+    oss = list(Senior.objects.filter(gyear=2012).exclude(type='C'))
     oss.sort(key=(lambda x: x.count()), reverse=True)
-    pss = list(Senior.objects.exclude(gyear=0).exclude(gyear=2010).exclude(type='C'))
+    pss = list(Senior.objects.exclude(gyear=0).exclude(gyear=2012).exclude(type='C'))
     pss.sort(key=(lambda x: x.count()), reverse=True)
     ms = Senior.objects.filter(type='M').order_by('?')
     return render_to_response('senior.html', locals())
@@ -263,7 +269,7 @@ def search(request, kw):
         qs = Question.objects.filter(publicall=1).order_by('-time')
         qs = qs.filter(Q(content__contains=kw) | Q(title__contains=kw))
         qs = list(qs)
-        anss = Answer.objects.filter(father__publicall=1).filter(Q(content__contains=kw)).order_by('-time')
+        anss = Answer.objects.filter(father__publicall=1).filter(Q(content__contains=kw) | Q(senior__name=kw)).order_by('-time')
         for a in anss:
             if not a.father in qs:
                 qs.append(a.father)
@@ -296,9 +302,12 @@ def tag_view(request, name):
     jsfiles = ['box']
 
     qs = t.question_set.all().order_by('-time')
+    fqs = []
     for q in qs:
         if q.answer_set.count() > 0:
             q.a = q.answer_set.all().order_by('-selected', '-time')[0]
+            if q.a.selected:
+        	    fqs.append(q)
     cs = t.comment_set.all()
     ts = list(Tag.objects.all())
     ts.sort(key=(lambda x: x.qcount() + x.ccount()), reverse=True)
@@ -362,5 +371,20 @@ def answer_thank(request, id):
     a.save()
     return HttpResponse('Done.')
 
+def dump(request):
+    questions = Question.objects.all()
+	
+    for q in questions:
+        q.answers = q.answer_set.all()
+        q.tags = q.tag.all()
+        q.universities = q.university.all()
+
+    return render_to_response('dump.html', locals())
+
 def error(request, text):
     return render_to_response('error.html', locals())
+
+def error_404(request):
+    settings = conf.settings
+    page_title = '该页面不存在'
+    return render_to_response('404.html', locals())

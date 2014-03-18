@@ -805,6 +805,21 @@ div.senior h2 a:hover, div.senior .more:hover, div.bottom-link div.link a:hover 
     background: #F4CF34;
 }
 
+div.senior .who {
+    font-weight: normal;
+    color: #e6b51a;
+}
+
+div.senior .what {
+    color: #e6b51a;
+}
+
+div.senior .id {
+    color: #b68500;
+    font-weight: bold;
+    font-family: monospace;
+}
+
 div.senior.module .info {
     padding-left: 57px;
     color: #EFC337;

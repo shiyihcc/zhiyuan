@@ -24,6 +24,12 @@ class Question(models.Model):
         else:
             return '匿名'
 
+    def past(self):
+        if self.time.year < datetime.now().year:
+            return True
+        else:
+            return False
+
     def __unicode__(self):
         return "[%d]%s" % (self.id, self.title)
 
@@ -71,6 +77,12 @@ class Additional(models.Model):
         else:
             return '匿名'
 
+    def past(self):
+        if self.time.year < datetime.now().year:
+            return True
+        else:
+            return False
+
     def __unicode__(self):
         return self.father.title
 
@@ -110,7 +122,7 @@ class University(models.Model):
     zsbsite = models.CharField(max_length=500, blank=True)
     is211 = models.BooleanField(default=False)
     is985 = models.BooleanField(default=False)
-    nstudent = models.IntegerField(blank=True)
+    nstudent = models.IntegerField()
     province = models.CharField(max_length=20)
 
     def qcount(self):

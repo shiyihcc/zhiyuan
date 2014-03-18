@@ -7,6 +7,8 @@ admin.autodiscover()
 
 from views import *
 
+handler404 = 'views.error_404'
+
 urlpatterns = patterns('',
     (r'^$', index),
     (r'^index/$', index),
@@ -26,6 +28,7 @@ urlpatterns = patterns('',
     (r'^search/(.+)/$', search),
     (r'^comment/(\d+)/$', comment_view),
     (r'^answer/(\d+)/thank/$', answer_thank),
+    (r'^dump/$', dump),
 
     (r'^admin/', include(admin.site.urls)),
     (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_PATH}),

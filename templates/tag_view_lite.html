@@ -20,7 +20,9 @@
                             {% for q in qs %}
                             <li>
                                 <h3><a href="/view/{{ q.id }}/"><span class="who">{{ q.writername }}：</span><span class="what"><span class="id">#{{ q.id }}</span> {{ q.title }}</span></a></h3>
+                                {% if q.a %}
                                 <p><a href="/view/{{ q.id }}/"><span class="who">{{ q.a.writer }}：</span>{{ q.a.content|short:200 }}</a></p>
+                                {% endif %}
                             </li>
                             {% endfor %}
                         </ul>

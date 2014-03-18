@@ -48,11 +48,13 @@ class AnswerAdmin(admin.ModelAdmin):
             obj.father.save()
 
             adds = obj.father.additional_set.all()
-            mailto = {obj.father.email: obj.father.writer}
+            mailto = {}
+            if not obj.father.past():
+                mailto[obj.father.email] = obj.father.writer
             for a in adds:
                 a.handled = True
                 a.save()
-                if not mailto.has_key(a.email):
+                if not mailto.has_key(a.email) and not a.past():
                     mailto[a.email] = a.writer
             if MAIL_NOTIFICATION:
                 smtp = smtplib.SMTP()
@@ -62,7 +64,6 @@ class AnswerAdmin(admin.ModelAdmin):
                 length = 200
                 for email, name in mailto.items():
                     msg = MIMEMultipart()
-                    msg.set_charset('UTF-8')
                     msg['From'] = "Zhiyuan Support"
                     msg['Subject'] = u"你提的问题得到了 %s 的回答" % (obj.senior.name, )
                     msg['To'] = email

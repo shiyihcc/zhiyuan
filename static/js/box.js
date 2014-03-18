@@ -1,3 +1,16 @@
+typos = {
+    '一摸': '一模',
+    '二摸': '二模',
+    '三摸': '三模',
+}
+
+function replace_typo(str) {
+    $.each(typos, function(w, c) {
+        str = str.replace(w, c);
+    })
+    return str;
+}
+
 function is_int(val) {
     return Math.floor(val) == val ? true : false;
 }
@@ -55,6 +68,7 @@ $(function() {
             alert('为了最好的搜索效果，请仅搜索一个关键词，谢谢。');;
         }
         else {
+            kw = replace_typo(kw);
             window.location.href = '/search/' + kw + '/';
         }
         return false;
