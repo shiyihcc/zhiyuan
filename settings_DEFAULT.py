@@ -3,6 +3,8 @@
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'zhiyuan.shiyiquan.cn', 'z.hcc.im']
+
 STATIC_PATH = './static'
 
 SITE_NAME = "[志愿]"
@@ -90,7 +92,7 @@ DATE_FORMAT = 'Y年n月j日\nH:i'
 
 import os.path
 TEMPLATE_DIRS = (
-    os.path.join(os.path.dirname(__file__), 'templates').replace('\\','/'),
+    os.path.join(os.path.dirname(__file__), 'templates').replace('\\', '/'),
 )
 
 INSTALLED_APPS = (
@@ -99,5 +101,5 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.markup',
+    'django.contrib.staticfiles',
 )

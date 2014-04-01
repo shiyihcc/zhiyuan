@@ -1,6 +1,6 @@
-from django.conf.urls.defaults import *
+from django.conf.urls import patterns, include
 from django.conf import settings
-from django.views.generic.simple import direct_to_template
+from django.views.generic import TemplateView
 
 from django.contrib import admin
 admin.autodiscover()
@@ -9,7 +9,8 @@ from views import *
 
 handler404 = 'views.error_404'
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
     (r'^$', index),
     (r'^index/$', index),
     (r'^special/$', special),
@@ -32,5 +33,5 @@ urlpatterns = patterns('',
 
     (r'^admin/', include(admin.site.urls)),
     (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_PATH}),
-    (r'^robots\.txt$', direct_to_template, {'template': 'robots.txt', 'mimetype': 'text/plain'})
+    (r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt')),
 )
