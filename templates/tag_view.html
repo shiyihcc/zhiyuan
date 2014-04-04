@@ -56,8 +56,9 @@
                 				<div class="avatar answerer fallback"><div class="prior" style="background-image: url('/static/img/avatars/{{ c.senior.avatar }}');"></div></div>
                 				<div class="info a"><span class="who">{{ c.writer }}</span><span class="university">{{ c.senior.university }}</span><span class="major">{{ c.senior.major }}</span><span class="detail">{{ c.senior.gyear }}级</span></div>
                         	    <div class="summary">
-                                    {% load markup %}
-                        	    	{{ c.summary|markdown }}
+                                    {# {% load markup %} #}
+                        	    	{# {{ c.summary|markdown }} #}
+                        	    	{{ c.summary }}
 									{% if c.content %}
 									<div class="read-more"><a href="/comment/{{ c.id }}">阅读全文…</a></div>
 									{% endif %}
