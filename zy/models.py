@@ -66,7 +66,7 @@ class Additional(models.Model):
     writer = models.CharField(max_length=100)
     email = models.EmailField()
     publicname = models.BooleanField(default=True)
-    handled = models.BooleanField()
+    handled = models.BooleanField(default=False)
     father = models.ForeignKey('Question')
 
     def title(self):
