@@ -1,9 +1,10 @@
 # -*- coding: UTF-8 -*-
 
-from datetime import datetime, date
+from datetime import datetime
 from django.db import models
 from common import validate_mobileno
 import urllib
+
 
 class Question(models.Model):
     title = models.CharField(max_length=100)
@@ -14,7 +15,7 @@ class Question(models.Model):
     content = models.CharField(max_length=10000)
     publicname = models.BooleanField(default=True)
     publicall = models.BooleanField(default=True)
-    handled = models.BooleanField(help_text='whether the question was handled')
+    handled = models.BooleanField(default=False, help_text='whether the question was handled')
     tag = models.ManyToManyField('Tag', blank=True)
     university = models.ManyToManyField('University', blank=True)
 
@@ -154,6 +155,7 @@ class Tag(models.Model):
     def __unicode__(self):
         return self.name
 
+
 class Comment(models.Model):
     time = models.DateTimeField(default=datetime.now)
     summary = models.CharField(max_length=1000)
@@ -174,6 +176,7 @@ class Comment(models.Model):
     def __unicode__(self):
         return self.title()
 
+
 class Shortcut(models.Model):
     content = models.CharField(max_length=100, unique=True)
     tag = models.ForeignKey('Tag', blank=True, null=True)
@@ -187,6 +190,7 @@ class Shortcut(models.Model):
 
     def __unicode__(self):
         return self.title()
+
 
 class Searchlog(models.Model):
     ipaddr = models.IPAddressField()
