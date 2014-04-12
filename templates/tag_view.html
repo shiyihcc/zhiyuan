@@ -2,32 +2,32 @@
 
 {% block stylesheet %}
     <style type="text/css">
-    
+
     p.desc {
     	color: #3E76BB;
     }
-    
+
     div.senior .who, div.senior .summary {
     	padding-left: 0;
     }
-    
-    
+
+
     li.comment p {
     	padding-left: 57px;
-    }	
-    
+    }
+
     p.info {
     	line-height: 24px;
     	color: #efc337;
     }
-    
+
     a.who {
     	font-size: 16px;
     	line-height: 24px;
     	font-weight: bold;
     	color: #E2AC00;
     }
-    
+
     a.read-more {
     	color: #E2AC00;
     	font-weight: bold;
@@ -56,9 +56,8 @@
                 				<div class="avatar answerer fallback"><div class="prior" style="background-image: url('/static/img/avatars/{{ c.senior.avatar }}');"></div></div>
                 				<div class="info a"><span class="who">{{ c.writer }}</span><span class="university">{{ c.senior.university }}</span><span class="major">{{ c.senior.major }}</span><span class="detail">{{ c.senior.gyear }}级</span></div>
                         	    <div class="summary">
-                                    {# {% load markup %} #}
-                        	    	{# {{ c.summary|markdown }} #}
-                        	    	{{ c.summary }}
+                                    {% load markdown2html %}
+                        	    	{{ c.summary|markdown2html }}
 									{% if c.content %}
 									<div class="read-more"><a href="/comment/{{ c.id }}">阅读全文…</a></div>
 									{% endif %}

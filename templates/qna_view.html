@@ -5,12 +5,12 @@
 	div.qna, div.senior {
 		margin-bottom: 20px;
 	}
-	
+
 	div.qna.loose h2 {
 		position: relative;
 		zoom: 1;
 	}
-	
+
 	/*
 a#xn_share {
 		position: absolute;
@@ -18,7 +18,7 @@ a#xn_share {
 		top: 8px;
 		height: 23px;
 	}
-	
+
 	a#xn_share span {
 		font-size: 12px;
 		line-height: 22px;
@@ -58,7 +58,7 @@ a#xn_share {
                         暂时还没有回应。
                         {% endif %}
                     	<ul>
-                            {# {% load markup %} #}
+                            {% load markdown2html %}
                     		{% for a in anss_adds %}
                     			<li>
                     			{% if a.type = 'ANS' %}
@@ -66,8 +66,7 @@ a#xn_share {
                 					<div class="info a"><span class="who">{{ a.writer }}</span><span class="university">{{ a.senior.university }}</span><span class="major">{{ a.senior.major }}</span><span class="grade">{{ a.senior.gyear }}级</span><span class="when">{{ a.time|date }}</span></div>
                 					{% if a.past %}<div class="out-of-date">答于{{ a.time|date:"Y年" }}，可能不适应最新情况</div>{% endif %}
                 					<div class="text-body">
-                                		{# {{ a.content|markdown }} #}
-                                		{{ a.content }}
+                                		{{ a.content|markdown2html }}
                                 	</div>
                                 	<div class="thank"><a href="#" data-answer-id="{{ a.id }}">• 感谢学长</a></div>
                     			{% else %}

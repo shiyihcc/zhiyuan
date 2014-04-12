@@ -26,13 +26,11 @@
                 				<div class="avatar answerer fallback"><div class="prior" style="background-image: url('/static/img/avatars/{{ c.senior.avatar }}');"></div></div>
                 				<div class="info senior"><span class="who">{{ c.writer }}</span><span class="university">{{ c.senior.university }}</span><span class="major">{{ c.senior.major }}</span><span class="detail">{{ c.senior.gyear }}级</span></div>
                         	    <div class="text-body">
-                                    {# {% load markup %} #}
+                                    {% load markdown2html %}
                         	    	{% if c.content %}
-                                        {# c.content|markdown #}
-                                        {{ c.content }}
+                                        {{ c.content|markdown2html }}
                                     {% else %}
-										{# c.summary|markdown #}
-                                        {{ c.summary }}
+										{{ c.summary|markdown2html }}
                                     {% endif %}
                             	</div>
                 			</li>

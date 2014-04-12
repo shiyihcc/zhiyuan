@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block stylesheet %}
-    <style type="text/css">    
+    <style type="text/css">
     div.special p.links {
     	padding-bottom: 7px;
     	border-bottom-style: dotted;
@@ -9,12 +9,12 @@
     	border-color: inherit;
     	margin: 0;
     }
-    
+
     div.special img.univ {
     	float: right;
     	margin: 7px 0 0 -20px;
     }
-    
+
     div.special div.info {
     	font-size: 16px;
     	color: #3E76BB;
@@ -22,7 +22,7 @@
     	float: left;
     	margin-top: 7px;
     }
-    
+
     div.special div.info abbr {
     	font-weight: bold;
     	display: inline-block;
@@ -36,33 +36,33 @@
 		text-align: center;
 		border-width: 0;
     }
-    
+
     div.senior .who, div.senior .summary {
     	padding-left: 0;
     }
-    
-    
+
+
     li.comment p {
     	padding-left: 57px;
-    }	
-    
+    }
+
     p.info {
     	line-height: 24px;
     	color: #efc337;
     }
-    
+
     a.who {
     	font-size: 16px;
     	line-height: 24px;
     	font-weight: bold;
     	color: #E2AC00;
     }
-    
+
     a.read-more {
     	color: #E2AC00;
     	font-weight: bold;
     }
-    
+
     </style>
 {% endblock %}
 
@@ -90,7 +90,7 @@
                         <div class="info"><abbr title="学生人数（数据可能不准确）">学生</abbr>{% if u.nstudent %}{{ u.nstudent }} 人{% endif %}</div>
                         <div class="clear"></div>
                 	</div>
-                </div>         
+                </div>
                 <div class="list senior tight">
                 	<h2>学长感悟</h2>
                 	<div class="content">
@@ -100,9 +100,8 @@
                 				<div class="avatar answerer fallback"><div class="prior" style="background-image: url('/static/img/avatars/{{ c.senior.avatar }}');"></div></div>
                 				<div class="info senior"><span class="who">{{ c.writer }}</span><span class="university">{{ c.senior.university }}</span><span class="major">{{ c.senior.major }}</span><span class="detail">{{ c.senior.gyear }}级</span></div>
                         	    <div class="summary">
-                                    {# {% load markup %} #}
-                        	    	{# {{ c.summary|markdown }} #}
-                        	    	{{ c.summary }}
+                                    {% load markdown2html %}
+                        	    	{{ c.summary|markdown2html }}
 									{% if c.content %}
 									<div class="read-more"><a href="/comment/{{ c.id }}">阅读全文…</a></div>
 									{% endif %}
