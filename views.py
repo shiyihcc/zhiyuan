@@ -9,7 +9,7 @@ from django import forms
 import datetime
 from common import validate_mobileno
 from zy.models import *
-from settings import TEST_HOST  
+from settings import TEST_HOST
 
 def index(request):
     host = request.get_host()
@@ -19,12 +19,12 @@ def index(request):
     jsfiles = ['box', 'jquery.cookie', 'index']
     anss = Answer.objects.filter(father__publicall=1, selected=True).order_by('-time')[:6]
     ss = Senior.objects.filter(type='C').order_by('-gyear', '?')
-    
+
     university_count = University.objects.count()
     officialsite_count = university_count * 2
     website_count = university_count * 4
     tag_count = Tag.objects.count()
-    
+
     return render_to_response('index.html', locals())
 
 def special(request):
@@ -59,9 +59,10 @@ def senior(request):
     page_title = '学长们'
     jsfiles = ['senior']
     #fss = Senior.objects.filter(type='C').order_by('-gyear', '?')
-    oss = list(Senior.objects.filter(gyear=2012).exclude(type='C'))
+    current_year = 2013
+    oss = list(Senior.objects.filter(gyear=current_year).exclude(type='C'))
     oss.sort(key=(lambda x: x.count()), reverse=True)
-    pss = list(Senior.objects.exclude(gyear=0).exclude(gyear=2012).exclude(type='C'))
+    pss = list(Senior.objects.exclude(gyear=0).exclude(gyear=current_year).exclude(type='C'))
     pss.sort(key=(lambda x: x.count()), reverse=True)
     ms = Senior.objects.filter(type='M').order_by('?')
     return render_to_response('senior.html', locals())
@@ -373,7 +374,7 @@ def answer_thank(request, id):
 
 def dump(request):
     questions = Question.objects.all()
-	
+
     for q in questions:
         q.answers = q.answer_set.all()
         q.tags = q.tag.all()
